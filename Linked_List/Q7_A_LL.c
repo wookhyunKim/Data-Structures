@@ -87,7 +87,22 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
+	// 기저 조건: 리스트가 비어 있거나 노드가 하나만 있는 경우
+    if (*ptrHead == NULL || (*ptrHead)->next == NULL) {
+        return;
+    }
+
+	/* add your code here */ 
+	ListNode *cur = *ptrHead;
+	ListNode *cur_next = cur->next;
+
+
+	RecursiveReverse(&cur_next);
+	cur->next->next = cur;
+	cur->next = NULL;
+
+	*ptrHead = cur_next;
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

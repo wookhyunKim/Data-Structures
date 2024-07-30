@@ -80,9 +80,9 @@ int main()
 			printf("Back linked list: ");
 			printList(&resultBackList);
 			printf("\n");
-			removeAllItems(&ll);
-			removeAllItems(&resultFrontList);
-			removeAllItems(&resultBackList);
+			// removeAllItems(&ll);
+			// removeAllItems(&resultFrontList);
+			// removeAllItems(&resultBackList);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -103,6 +103,46 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	ListNode *cur;
+	cur = ll->head;
+
+	// 리스트를 나눌 때 프론트리스트의 마지막 next를 null로 하기 위해 필요함.
+	ListNode *prev;
+
+	resultFrontList->head = cur;
+	resultFrontList->size++;
+
+	if (ll->size %2 == 1){ // 홀수 경우
+		while (resultFrontList->size <= (ll->size /2) +1 )
+		{
+			resultFrontList->size++;	
+			prev = cur;
+			cur = cur->next;	
+	
+		}
+		
+
+	}else{ // 짝수 경우
+		while (resultFrontList->size <= ll->size /2 )
+		{
+			resultFrontList->size++;
+			prev = cur;
+			cur = cur->next;	
+		}
+
+	}
+
+	prev->next = NULL;
+
+	resultBackList->head = cur;
+	resultBackList->size++;
+	cur = cur->next;
+	while(resultBackList->size < (ll->size - resultFrontList->size)){
+		resultBackList->head->next = cur->next;
+		resultBackList->size++;
+		cur = cur->next;	
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

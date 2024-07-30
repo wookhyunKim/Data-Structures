@@ -94,16 +94,17 @@ int insertSortedLL(LinkedList *ll, int item)
 	int index = 0;
 	int rs;
 
+	// LL에 노드가 아무것도 없을 때
 	if (ll->head == NULL)
 	{
 		rs = insertNode(ll, index, item);
 		return index + 1;
 	}
 	else
-	{
-		ListNode *cur;
-		cur = ll->head;
-		while (index < ll->size)
+	{ // LL에 노드가 하나이상 있을 때
+		ListNode *cur; // 노드 하나를 불러오기
+		cur = ll->head; // 리스트의 헤드의 주소를 cur 포인터 변수에 넣기
+		while (index < ll->size) // index가 리스트의 크기보다 작을 때 작동
 		{
 			if (cur->item == item)
 			{
@@ -111,7 +112,7 @@ int insertSortedLL(LinkedList *ll, int item)
 				return -1; // 실패를 나타내기 위해 -1 반환
 			}
 			if (cur->item < item)
-			{
+			{ // cur 값은 노드의 값, item 은 입력받은 값 /. 입력받은 값이 더 클때 패스 --> index +1을 의미 또한 next 노드로 이동하여 반복문비교
 				index++;
 				cur = cur->next;
 				continue;

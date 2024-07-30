@@ -84,8 +84,8 @@ int main()
 			printList(&ll1);
 			printf("The resulting linked list 2: ");
 			printList(&ll2);
-			removeAllItems(&ll1);
-			removeAllItems(&ll2);
+			// removeAllItems(&ll1);
+			// removeAllItems(&ll2);
 			break;
 		case 0:
 			removeAllItems(&ll1);
@@ -104,6 +104,33 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	
+
+	ListNode *cur1; // 연결리스트1 
+	cur1 = ll1->head;
+
+	ListNode *cur2; // 연결리스트2
+	cur2 = ll2->head;
+
+	while(cur1!=NULL && cur2!=NULL){ 
+		// 둘다 리스트가 비어있지 않을 때
+
+		/*
+		cur1을 먼저 하지 않는 이유는 cur1의 next를 바꿔버리면
+		ll1의 두번째노드의 연결이 끊어지기 때문에 cur2의 next를 먼저 
+		cur1의 next로 연결 시켜놓음
+
+		head를 먼저 ll2로 이동시켜놔서 연결이 끊어져도 ll2의 두번째노드를 알 수 있게함
+		옮기는 작업을 하고 현재상태를 갱신해줌
+		*/
+		ll2->head = cur2->next;
+		cur2->next = cur1->next;
+		ll2->size--;
+		cur1->next = cur2;
+		ll1->size++;
+		cur1 = cur1->next->next;
+		cur2 = ll2->head;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

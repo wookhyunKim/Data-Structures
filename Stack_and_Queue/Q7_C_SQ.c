@@ -105,6 +105,12 @@ int main()
 int balanced(char *expression)
 {
 /* add your code here */
+	if((sizeof(expression)/sizeof(char))%2){
+		//문자가 홀수면 
+		return;
+	}
+	// 스택에서의 두 수의 위치의 합이 일정하다 를 이용해야 할 것만 같다.
+
 }
 
 ////////////////////////////////////////////////////////////

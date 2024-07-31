@@ -88,8 +88,8 @@ int main()
 			recursiveReverse(&q); // You need to code this function
 			printf("The resulting reversed queue is: ");
 			printList(&(q.ll));
-			removeAllItemsFromQueue(&q);
-			removeAllItems(&ll);
+			// removeAllItemsFromQueue(&q);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItemsFromQueue(&q);
@@ -110,6 +110,14 @@ int main()
 void recursiveReverse(Queue *q)
 {
 /* add your code here */
+	if(q==NULL || q->ll.size==0 || isEmptyQueue(q)){
+		return;
+	}
+
+	int a = dequeue(q);
+	recursiveReverse(q);
+	enqueue(q,a);
+
 }
 
 //////////////////////////////////////////////////////////////////

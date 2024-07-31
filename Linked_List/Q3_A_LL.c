@@ -69,7 +69,7 @@ int main()
 			moveOddItemsToBack(&ll); // You need to code this function
 			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -86,7 +86,57 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+
+	 if (ll->head == NULL || ll->head->next == NULL) {
+        return; // 리스트가 비어있거나 노드가 하나인 경우 처리할 필요 없음
+    }
+
+    ListNode *cur = ll->head;
+    ListNode *prev = NULL;
+    ListNode *last = NULL;
+
+    // 마지막 노드를 찾음
+    last = ll->head;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+    ListNode *end = last; // 리스트의 새로운 끝을 가리키는 포인터
+
+    while (cur != end) {
+        if (cur->item % 2 == 1) { // 홀수인 경우
+            if (cur == ll->head) { // 현재 노드가 head인 경우
+                ll->head = cur->next;
+                last->next = cur;
+                cur->next = NULL;
+                last = cur;
+                cur = ll->head;
+            } else {
+                prev->next = cur->next;
+                last->next = cur;
+                cur->next = NULL;
+                last = cur;
+                cur = prev->next;
+            }
+            ll->size--; // 사이즈 감소
+        } else {
+            prev = cur;
+            cur = cur->next;
+        }
+    }
+
+    // 마지막 노드가 홀수일 때
+    if (end->item % 2 == 1) {
+        if (end == ll->head) {
+            ll->head = end->next;
+        } else {
+            prev->next = end->next;
+        }
+        last->next = end;
+        end->next = NULL;
+        last = end;
+        ll->size--; // 사이즈 감소
+    }
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -90,8 +90,8 @@ int main()
 			removeUntil(&s,i); // You need to code this function
 			printf("The resulting stack after removing values until the given value: ");
 			printList(&(s.ll));
-			removeAllItemsFromStack(&s);
-			removeAllItems(&ll);
+			// removeAllItemsFromStack(&s);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItemsFromStack(&s);
@@ -112,6 +112,32 @@ int main()
 void removeUntil(Stack *s, int value)
 {
 /* add your code here */
+	
+	Stack temp_stack;
+	temp_stack.ll.head = NULL;
+	temp_stack.ll.size = 0;
+
+
+	while(s->ll.size!=0){
+		// 현재 last값 확인
+		int last = peek(s);
+		int pop_val;
+		
+		if (last != value){
+			// 다르면 pop
+			pop_val = pop(s);
+			push(&temp_stack,pop_val);
+		}else{
+			// 같으면 pop 하고 remove
+			push(&temp_stack,last);
+			removeAllItemsFromStack(s);
+		}
+	}
+
+	while(temp_stack.ll.size!=0){
+		push(s,pop(&temp_stack));
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

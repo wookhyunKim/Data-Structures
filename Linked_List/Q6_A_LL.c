@@ -89,6 +89,35 @@ int main()
 int moveMaxToFront(ListNode **ptrHead)
 {
     /* add your code here */
+	ListNode *max_node;
+	// max_node = malloc(sizeof(ListNode));
+	// max_node->item = 0;
+	// max_node->next =NULL;
+
+	ListNode *cur = *ptrHead;  // ptrHead  = &ll.head
+	ListNode *origin = *ptrHead; // 원상복구를 위한 초기리스트 저장
+	ListNode *prev = cur; // max node 이전 노드
+	
+	max_node = cur;
+
+
+	while(cur->next != NULL){
+		if(cur->item < cur->next->item){
+			prev = cur;
+			max_node = cur->next;
+		}
+		cur = cur->next;
+	}
+
+	prev->next = max_node->next;
+	*ptrHead = max_node;
+	max_node->next = origin;
+
+	return 0;
+
+
+
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

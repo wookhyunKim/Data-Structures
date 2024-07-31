@@ -103,7 +103,38 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	/* add your code here */
+	if (s->ll.size % 2){ // 스택 크기가 홀수일 경우 리턴
+		printf("스택 홀수임");
+		return 0;
+	}else{
+
+	// int a = pop(s);
+	// printf("Removed : ");
+	// printList(&(s->ll));
+
+	// int b= pop(s);
+	// printList(&(s->ll));
+
+	// printf("a = %d, b = %d\n", a,b);
+
+	while(s->ll.size != 0){
+		int a = pop(s);
+		int b = pop(s);
+
+		int diff = abs(a-b);
+		// printf("차이는 ------ ?  :  %d\n",diff);
+
+		if (diff==1){ // 차이가 1일때 -> 연속적일 때
+			// printf("연속적임");
+			continue;
+		}else{
+			// printf("연속 아니여서 끝");
+			return 0;
+		}
+	}
+	return 1;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////

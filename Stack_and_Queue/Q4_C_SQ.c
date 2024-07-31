@@ -94,7 +94,7 @@ int main()
 			reverse(&q); // You need to code this function
 			printf("The resulting queue after reversing its elements is: ");
 			printList(&(q.ll));
-			removeAllItems(&(q.ll));
+			// removeAllItems(&(q.ll));
 			break;
 		case 0:
 			removeAllItems(&(q.ll));
@@ -113,6 +113,31 @@ int main()
 void reverse(Queue *q)
 {
 /* add your code here */
+	// while(q->ll.size != 0 ){
+	// 	int a = dequeue(q);
+	// 	reverse(q);
+	// 	printf("%d ",a);
+	// }
+
+// ================================================================================================
+
+	Stack s;
+	s.ll.head=NULL;
+	s.ll.size=0;
+	s.ll.tail=NULL;
+
+	while(q->ll.size != 0 ){
+		int a = dequeue(q);
+		push(&s,a);
+	}
+	
+	while(s.ll.size != 0 ){
+		int b = pop(&s);
+		enqueue(q,b);
+	}
+
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

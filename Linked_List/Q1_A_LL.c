@@ -89,44 +89,87 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	// /* add your code here */
 
+	// int index = 0;
+	// int rs;
+
+	// // LL에 노드가 아무것도 없을 때
+	// if (ll->head == NULL)
+	// {
+	// 	rs = insertNode(ll, index, item);
+	// 	return index + 1;
+	// }
+	// else
+	// { // LL에 노드가 하나이상 있을 때
+	// 	ListNode *cur; // 노드 하나를 불러오기
+	// 	cur = ll->head; // 리스트의 헤드의 주소를 cur 포인터 변수에 넣기
+	// 	while (index < ll->size) // index가 리스트의 크기보다 작을 때 작동
+	// 	{
+	// 		if (cur->item == item)
+	// 		{
+	// 			// 중복된 값이 발견된 경우 - 삽입하지 않음
+	// 			return -1; // 실패를 나타내기 위해 -1 반환
+	// 		}
+	// 		if (cur->item < item)
+	// 		{ // cur 값은 노드의 값, item 은 입력받은 값 /. 입력받은 값이 더 클때 패스 --> index +1을 의미 또한 next 노드로 이동하여 반복문비교
+	// 			index++;
+	// 			cur = cur->next;
+	// 			continue;
+	// 		}
+	// 		else
+	// 		{
+	// 			break;
+	// 		}
+	// 	}
+
+	// 	rs = insertNode(ll, index, item);
+	// 	rs = index;
+	// 	return rs + 1;
+	// }
+
+
+
+	ListNode *newNode = malloc(sizeof(ListNode));
+	// 링크드 리스트가 없을때
+	if (ll == NULL) return -1;  // == 위에 하는 게 좋을 듯 ?
+
+	newNode->item = item;   // ==  이거랑 말록 노드 할당한거랑 붙이는 게 좋을듯 ?
+	newNode->next = NULL;
+
+	// 링크드 리스트가 비었을때  // == 주석 순서를 이해하기 쉽게 바꾸는 것도 낫배드 ? 왜냐하면 이 주석 다음 if 가 나오면 다음 나오는 것이 이해가 되는데 갑자기 cur 선언함
 	int index = 0;
-	int rs;
+	ListNode* cur = ll->head;
+	if (ll->head == NULL){
+		ll->head = newNode;
+		ll->size = 1;
+		return 0;
+	}
 
-	// LL에 노드가 아무것도 없을 때
-	if (ll->head == NULL)
+	if (item < cur->item){
+		newNode->next = cur;
+		ll->head = newNode;
+		ll->size++;
+		return 0;
+	}
+	// 링크드 리스트 첫번째 값과 입력 데이터를 비교했을때 입력값이 더 작다면 맨 앞에
+
+	while (cur->next != NULL && cur->next->item < item)
 	{
-		rs = insertNode(ll, index, item);
-		return index + 1;
+		cur = cur->next;
+		index++;
 	}
-	else
-	{ // LL에 노드가 하나이상 있을 때
-		ListNode *cur; // 노드 하나를 불러오기
-		cur = ll->head; // 리스트의 헤드의 주소를 cur 포인터 변수에 넣기
-		while (index < ll->size) // index가 리스트의 크기보다 작을 때 작동
-		{
-			if (cur->item == item)
-			{
-				// 중복된 값이 발견된 경우 - 삽입하지 않음
-				return -1; // 실패를 나타내기 위해 -1 반환
-			}
-			if (cur->item < item)
-			{ // cur 값은 노드의 값, item 은 입력받은 값 /. 입력받은 값이 더 클때 패스 --> index +1을 의미 또한 next 노드로 이동하여 반복문비교
-				index++;
-				cur = cur->next;
-				continue;
-			}
-			else
-			{
-				break;
-			}
-		}
 
-		rs = insertNode(ll, index, item);
-		rs = index;
-		return rs + 1;
+	if (cur->next != NULL && cur->next->item == item){
+		free(newNode);
+		return -1;
 	}
+
+	newNode->next = cur->next;
+	cur->next = newNode;
+	ll->size++;
+
+	return index + 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

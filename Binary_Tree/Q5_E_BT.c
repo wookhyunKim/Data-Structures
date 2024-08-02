@@ -111,7 +111,7 @@ void mirrorTree(BTNode *node)
     }
     BTNode *root = node;
 
-    BTNode *temp = root->left;
+    BTNode *temp = root->left;  
 
     root->left = root->right;
     root->right = temp;

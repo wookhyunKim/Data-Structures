@@ -90,7 +90,47 @@ int main()
 
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	/*
+	중위순회를 해서 stack자료구조를 만들어놓고
+	다른 스택메모리를 선언해서 이전 스택을 pop해서 push함
+	언제까지 ? node left right가 null일때까지
+
+	*/
+	
+	if(root== NULL){
+		return;
+	};
+	
+	// 중위순회를 사용하여 스택메모리를 만들 예정
+	Stack* inputStack;
+	inputStack->top->data = root;
+	inputStack->top->next  = NULL;
+
+	// 중위순회로 만든 스택메모리의 데이터를 pop 시키면서 push할 스택메모리
+	Stack* outputStack;
+	outputStack->top->data = NULL;
+	outputStack->top->next  = NULL;
+
+
+	BSTNode* cur = root;
+	BSTNode* prev = root;
+
+	while(prev->left != NULL && prev -> right != NULL){
+		if (prev->right == NULL){
+			push(inputStack,prev->left);
+			cur = cur->left;
+		}else if(prev->left == NULL){
+			push(inputStack,prev->right);
+			cur = cur->right;
+		}else{
+			push(inputStack,prev->left);
+			cur = cur->left;
+		}
+		prev = cur;
+	}
+
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

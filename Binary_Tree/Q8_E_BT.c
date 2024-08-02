@@ -102,7 +102,30 @@ int main()
 
 int hasGreatGrandchild(BTNode *node)
 {
-	/* add your code here */
+	/* 
+    증손자가 있는지 여부는 트리의 깊이를 파악해서 
+    트리의 깊이가 3일 때의 노드 item 값을 출력해주면 된다.
+     */
+    int cnt = 0; // 트리의 깊이를 파악할 변수
+
+    if(node ==NULL){
+        return 0;
+    }
+
+    int leftDepth = hasGreatGrandchild(node->left);
+    int rightDepth = hasGreatGrandchild(node->right);
+
+    cnt += leftDepth > rightDepth ? leftDepth : rightDepth ;
+    
+    if (cnt ==3 ){
+        printf("%d \n",node->item);
+        return 1; // 1 성공적 완수
+    }
+
+    return cnt + 1;
+
+
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
